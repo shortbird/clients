@@ -2,3 +2,5 @@ Flask
 Flask-WTF
 WTForms
 email-validator
+gspread
+google-auth-oauthlib
