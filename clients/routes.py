@@ -127,7 +127,7 @@ def get_partner_data_with_url(partner_id):
     
     partner_data = partner.copy()
     partner_data["logo_url"] = url_for(
-        "clients.static", filename=partner_data["logo_file"], _external=True
+        "clients.static", filename=partner_data["logo_file"]
     )
     return partner_data
 
