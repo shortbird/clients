@@ -259,7 +259,7 @@
         <div class="form-wrapper" id="form-section">
             <h2>Request More Information</h2>
             <form action="{{ url_for('clients.request_info', partner_id=partner.id) }}" method="post" novalidate>
-                <input type="hidden" name="partner_name" value="{{ partner.partner_name }}">
+                {{ form.hidden_tag() }}
                 <div class="form-group">
                     {{ form.first_name.label }}
                     {{ form.first_name(placeholder="Enter your first name") }}

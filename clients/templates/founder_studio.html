@@ -280,22 +280,28 @@
     <section id="contact" class="contact-section">
         <div class="contact-card">
             <h2>Request More Information</h2>
-            <form action="{{ url_for('clients.contact_submit') }}" method="post">
-                <input type="hidden" name="partner_name" value="{{ partner.partner_name }}">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-                </div>
-                <button type="submit" class="cta-button">Submit</button>
-            </form>
+                <form action="{{ url_for('clients.request_info') }}" method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                    </div>
+                    <!-- This hidden input is crucial for identifying the partner -->
+                    <input type="hidden" name="partner_name" value="{{ partner.partner_name }}">
+                    <button type="submit" class="cta-button">Submit</button>
+                </form>
         </div>
     </section>
 
