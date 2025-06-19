@@ -1,0 +1,303 @@
+{% extends "client_base.html" %}
+
+{% block title %}Founder Studio at iHub{% endblock %}
+
+{% block content %}
+<style>
+    /* Resetting default margin for the main content block */
+    .main-content {
+        padding: 0;
+    }
+
+    /* Color Palette */
+    :root {
+        --dark-blue: #0a192f;
+        --light-blue: #00bfff;
+        --text-color: #ccd6f6;
+        --white-color: #ffffff;
+        --section-bg: #0f2340;
+    }
+
+    /* General Body Styles */
+    .page-body {
+        background-color: var(--dark-blue);
+        color: var(--text-color);
+        font-family: sans-serif;
+        line-height: 1.6;
+    }
+
+    /* Section Styling */
+    .section {
+        padding: 60px 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        text-align: center;
+        padding: 100px 20px;
+        background-color: #000;
+    }
+    .hero-section h1 {
+        font-size: 3em;
+        color: var(--white-color);
+        margin-bottom: 0.5em;
+    }
+    .hero-section p {
+        font-size: 1.2em;
+        color: var(--light-blue);
+        margin-bottom: 2em;
+    }
+    .cta-button {
+        background-color: var(--light-blue);
+        color: var(--dark-blue);
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .cta-button:hover {
+        background-color: #5ceaff;
+    }
+
+    /* Two-Column Layout */
+    .two-column-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+    }
+    
+    .two-column-grid img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    /* Section specific content */
+    .section h2 {
+        font-size: 2.5em;
+        color: var(--white-color);
+        margin-bottom: 1em;
+    }
+    .feature-list {
+        list-style: none;
+        padding: 0;
+    }
+    .feature-list li {
+        margin-bottom: 1em;
+        font-size: 1.1em;
+        padding-left: 25px;
+        position: relative;
+    }
+    .feature-list li::before {
+        content: '✓';
+        color: var(--light-blue);
+        position: absolute;
+        left: 0;
+    }
+
+    .dual-audience-section {
+        background-color: var(--white-color);
+        color: var(--dark-blue);
+    }
+    .dual-audience-section h3 {
+        color: var(--dark-blue);
+        font-size: 1.5em;
+        border-bottom: 2px solid var(--light-blue);
+        padding-bottom: 0.5em;
+    }
+
+    /* Gallery Section */
+    .gallery-section h2 {
+        text-align: center;
+    }
+    .image-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-top: 2em;
+    }
+    .image-gallery img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    
+    /* Launchpad Section */
+    .launchpad-section {
+        text-align: center;
+        padding: 100px 20px;
+        background-color: var(--section-bg);
+    }
+
+    /* NEW Contact Form Styles */
+    .contact-section {
+        background-color: #000;
+        padding: 80px 20px;
+    }
+    .contact-card {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: var(--section-bg);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .contact-card h2 {
+        text-align: center;
+        margin-top: 0;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        color: var(--text-color);
+        margin-bottom: 8px;
+        font-size: 0.9em;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 5px;
+        border: 2px solid #334a66;
+        background-color: var(--dark-blue);
+        color: var(--white-color);
+        font-size: 1em;
+        box-sizing: border-box; /* Important for padding */
+        transition: border-color 0.3s ease;
+    }
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--light-blue);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .two-column-grid {
+            grid-template-columns: 1fr;
+        }
+        .section {
+            padding: 40px 15px;
+        }
+        .hero-section {
+            padding: 60px 15px;
+        }
+        .hero-section h1, .section h2 {
+            font-size: 2em;
+        }
+        .hero-section p, .feature-list li {
+            font-size: 1em;
+        }
+    }
+</style>
+
+<div class="page-body">
+
+    <section class="hero-section">
+        <h1>Welcome to the Founder Studio at iHub!</h1>
+        <p>A revolutionary approach to education that's faster, more hands-on, and powerfully relevant.</p>
+        <a href="#contact" class="cta-button">Request Info</a>
+    </section>
+
+    <section class="section">
+        <div class="two-column-grid">
+            <div>
+                <img src="{{ url_for('static', filename='images/5.jpeg') }}" alt="Students collaborating on a project">
+            </div>
+            <div>
+                <h2>Education That Actually Means Something</h2>
+                <ul class="feature-list">
+                    <li>Harness your passion with an accelerated, affordable education that teaches you how to build and run a successful business.</li>
+                    <li>Follow a flexible schedule with no busy work.</li>
+                    <li>Graduate with a world-class professional network.</li>
+                    <li>Build a profitable business from the ground up.</li>
+                    <li>Earn an accredited Bachelor's degree while building your own business.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section dual-audience-section">
+        <div class="two-column-grid">
+            <div>
+                <h3>For High Schoolers:</h3>
+                <ul class="feature-list">
+                    <li>Earn your diploma on your terms.</li>
+                    <li>Enjoy no busywork, rigid schedules, or classrooms.</li>
+                    <li>Follow a personalized learning path tailored to you.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>For College-Aged Creators:</h3>
+                <ul class="feature-list">
+                    <li>Earn a Bachelor's degree while building your business.</li>
+                    <li>Get matched, mentored, and certified.</li>
+                    <li>Build a professional portfolio designed to impress both employers and investors.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="two-column-grid">
+            <div>
+                <h2>Learn From the People Who've Done It</h2>
+                <ul class="feature-list">
+                    <li>Receive one-on-one coaching from readily available mentors.</li>
+                    <li>Work with specialist guides to help you learn faster.</li>
+                    <li>Get connected to our powerful partner network of experts.</li>
+                    <li>Learn, build, and grow alongside a collaborative community of peers.</li>
+                </ul>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='images/4.jpeg') }}" alt="A mentor guiding a student">
+            </div>
+        </div>
+    </section>
+
+    <section class="section gallery-section">
+        <h2>Built for Teen Entrepreneurs & College-Aged Innovators</h2>
+        <div class="image-gallery">
+            <img src="{{ url_for('static', filename='images/1.png') }}" alt="Student presenting project">
+            <img src="{{ url_for('static', filename='images/2.png') }}" alt="Group discussion">
+            <img src="{{ url_for('static', filename='images/3.jpeg') }}" alt="Working on a laptop">
+        </div>
+    </section>
+
+    <section class="launchpad-section">
+        <h2>This isn't Just School.<br>It's your Launchpad.</h2>
+        <p>If you're ready to build something real, earn an accredited degree, and take control of your future, let's talk.</p>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-card">
+            <h2>Request More Information</h2>
+            <form action="{{ url_for('clients.contact_submit') }}" method="post">
+                <input type="hidden" name="partner_name" value="{{ partner.partner_name }}">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+                <button type="submit" class="cta-button">Submit</button>
+            </form>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

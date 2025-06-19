@@ -1,0 +1,284 @@
+{% extends "client_base.html" %}
+
+{% block title %}Trailhead School - An Education Built For You{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --bg-color: #ffffff; /* White */
+        --text-color: #212529; /* Dark Grey */
+        --primary-accent: #343a40; /* Dark Grey */
+        --primary-accent-hover: #23272b; /* Darker Grey on Hover */
+        --light-bg: #f8f9fa;   /* Light Grey */
+        --border-color: #dee2e6; /* Lighter Grey */
+        --muted-text: #6c757d;   /* Medium Grey */
+    }
+
+    /* Import new fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: 'Lato', sans-serif;
+        margin: 0;
+    }
+    
+    /* Fullscreen Hero Section */
+    .fullscreen-hero {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        background: url("{{ url_for('static', filename='images/trailhead_back.jpeg') }}") no-repeat center center/cover;
+    }
+
+    .hero-logo {
+        max-width: 300px;
+        margin-bottom: 2rem;
+    }
+
+    .fullscreen-hero h1 {
+        font-size: 3.5rem;
+        line-height: 1.2;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        margin-bottom: 1rem;
+    }
+
+    .btn { 
+        background-color: var(--primary-accent); 
+        color: white; 
+        padding: 15px 30px; 
+        text-decoration: none; 
+        border-radius: 8px; 
+        font-weight: bold; 
+        border: none; 
+        font-size: 1.3rem; 
+        cursor: pointer; 
+        transition: all 0.2s ease;
+    }
+    .btn:hover { 
+        transform: translateY(-2px); 
+        box-shadow: 0 4px 15px rgba(0,0,0, 0.1); 
+        background-color: var(--primary-accent-hover);
+    }
+    
+    /* Main Content Area Styles */
+    .main-content-area {
+        padding: 2em 15%; /* Creates whitespace on left and right */
+    }
+    h1 {
+        font-family: 'Lato', sans-serif;
+        font-weight: 1000;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    h2, h3 {
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+    }
+
+    
+    .section { padding: 50px 0; }
+    .section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    hr {
+        border: none;
+        height: 1px;
+        background-color: var(--border-color);
+        margin: 4rem auto;
+        width: 80%;
+    }
+    
+    .how-it-works-grid { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem; 
+        text-align: left;
+    }
+    .step h3 {
+        font-size: 1.5rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+    }
+    
+    .step p, #mentors > p:first-of-type {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+
+    .mentors-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .mentor-card { text-align: center; }
+    .mentor-card img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 0 auto 1rem auto;
+    }
+    .mentor-card h3 { margin-bottom: 0.25rem; }
+    .mentor-card .bio {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted-text);
+        text-align: left;
+    }
+    
+    .form-wrapper { background-color: var(--light-bg); padding: 2.5rem; border-radius: 8px;}
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-weight: bold; margin-bottom: 0.5rem; }
+    .form-group input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box; font-size: 1rem; background-color: var(--white);}
+    .alert-error { text-align: left; padding: 1em; margin-bottom: 1em; border-radius: 4px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb;}
+
+    .info-hook {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 3rem auto; /* Centers the block and adds space below */
+        font-size: 1.2rem; /* Larger font size */
+        line-height: 1.7;   /* More space between lines */
+    }
+
+    .info-hook ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 1.5rem;
+        text-align: left;
+        column-count: 2;
+        column-gap: 2.5rem;
+    }
+
+    .info-hook li {
+        padding-left: 1.5rem;
+        position: relative;
+        margin-bottom: 0.75rem; /* Space between bullet points */
+    }
+
+    .info-hook li::before {
+        content: '→'; /* Arrow bullet */
+        position: absolute;
+        left: 0;
+        color: var(--primary-accent); /* Uses your existing brand color */
+        font-weight: bold;
+    }
+
+    @media (max-width: 992px) {
+        .main-content-area {
+            padding: 1em;
+        }
+        .fullscreen-hero h1 { font-size: 2.5rem; }
+        .how-it-works-grid, .mentors-grid { 
+            grid-template-columns: 1fr;
+        }
+        .info-hook ul {
+            column-count: 1;
+        }
+    }
+
+</style>
+
+<div class="fullscreen-hero">
+    <img src="{{ url_for('static', filename='images/trailhead-logo.png') }}" alt="Trailhead Logo" class="hero-logo">\
+    <a href="#form-section" class="btn">Request Information</a>
+</div>
+
+<main class="main-content-area">
+    <h1>Stop Jumping Through Hoops. <br>Start Building Your Future.</h1>
+    <div style="text-align: center; max-width: 800px; margin: 4rem auto; padding: 0 1em;">
+    <p style="font-size: 1.2rem; line-height: 1.7; color: var(--muted-text);">
+        Trailhead School was founded on a simple idea: education should be built around a student's passions, not a standardized curriculum. We empower students by trusting them to direct their own learning, with expert teachers helping them build real skills for the future.
+    </p>
+    </div>
+    <div id="how-it-works" class="section">
+        <h2>How It Works</h2>
+        <hr>
+        <div class="how-it-works-grid">
+            <div class="step">
+                <h3>1. Design Your MAP</h3>
+                <p>You'll partner one-on-one with one of our expert teachers to define a high-level goal, broken down into smaller, achievable milestones.</p>
+            </div>
+            <div class="step">
+                <h3>2. Build & Learn</h3>
+                <p>Work through your milestones at your own pace, with constant support from our team of specialist educators. You'll build real skills by doing real work.</p>
+            </div>
+            <div class="step">
+                <h3>3. Showcase Success</h3>
+                <p>Present your completed work at our community Showcase Nights to build a tangible portfolio that is ready to impress employers and investors.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="mentors" class="section">
+        <h2>Meet Your Teachers</h2>
+        <hr>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem auto;">With over 20 years of combined experience, our founders created Trailhead out of a frustration with the restrictive public school system. Their mission is to empower students by trusting them to direct their own learning.</p>
+        <div class="mentors-grid">
+            <div class="mentor-card">
+                <img src="{{ url_for('static', filename='images/tanner-bowman.jpg') }}" alt="Headshot of Tanner Bowman">
+                <h3>Tanner Bowman</h3>
+                <p class="bio">A Computer Science teacher at American Fork High School, Tanner's doctoral research focused on increasing student motivation by giving them greater autonomy over their learning.</p>
+            </div>
+            <div class="mentor-card">
+                <img src="{{ url_for('static', filename='images/calvin-barnum.jpg') }}" alt="Headshot of Calvin Barnum">
+                <h3>Calvin Barnum</h3>
+                <p class="bio">As the marketing, business, and entrepreneurship teacher at American Fork High School, Calvin specializes in project-based learning to help students build tangible businesses and portfolios.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <hr>
+        <div class="info-hook">
+            <p>Tired of a one-size-fits-all education? Learn how you can:</p>
+            <ul>
+                <li>Earn credit towards a diploma or Bachelor's degree while doing what you love, all at your own pace.</li>
+                <li>Get personalized, one-on-one support from expert teachers to help you achieve your unique goals.</li>
+                <li>Join a community of like-minded students who are passionate about building the life they want to live now.</li>
+                <li>Access a flexible school schedule that fits your life—whether you're an athlete, artist, or entrepreneur.</li>
+                <li>Take a month-long family road trip! Our teachers will support you no matter where you are in the world.</li>
+                <li>Lead out in hands-on projects that build real skills and a portfolio you can show to future employers or colleges.</li>
+                <li>Participate in community events and showcase nights to present your work and gain valuable feedback.</li>
+                <li>Get access to exclusive workshops, guest speakers, and networking opportunities.</li>
+                <li>Receive personalized guidance on college applications, career paths, and entrepreneurship.</li>
+                <li>Have the freedom to explore your interests and passions without the constraints of traditional schooling.</li>
+                <li>Get hands-on access to the Trailhead makerspace and other creative resources.</li>
+            </ul>
+        </div>
+        <div class="form-wrapper" id="form-section">
+            <h2>Request More Information</h2>
+            <form action="{{ url_for('clients.request_info', partner_id=partner.id) }}" method="post" novalidate>
+                <input type="hidden" name="partner_name" value="{{ partner.partner_name }}">
+                <div class="form-group">
+                    {{ form.first_name.label }}
+                    {{ form.first_name(placeholder="Enter your first name") }}
+                </div>
+                 <div class="form-group">
+                    {{ form.last_name.label }}
+                    {{ form.last_name(placeholder="Enter your last name") }}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label }}
+                    {{ form.email(placeholder="Enter your email address") }}
+                </div>
+                <div class="form-group">
+                    {{ form.phone.label }}
+                    {{ form.phone(placeholder="Enter your phone number (Optional)") }}
+                </div>
+                {{ form.submit(class="btn") }}
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
