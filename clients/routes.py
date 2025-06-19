@@ -36,6 +36,13 @@ PARTNERS = {
     },
 }
 
+# Map production domains to partner IDs
+DOMAIN_PARTNER_MAP = {
+    "trailheadschool.org": "trailhead",
+    "founderstudio.org": "founder-studio",
+    "timsheleducation.org": "timshel",
+}
+
 
 class RequestInfoForm(FlaskForm):
     """Form for users to request information."""
@@ -91,22 +98,32 @@ def home():
     """
     Determines which landing page to show based on the hostname.
     """
-    hostname = request.host.split(":")[0]
+    hostname = request.host.split(":")[0].lower()
+
+    # Local development check
     if "localhost" in hostname or "127.0.0.1" in hostname:
         return render_template("local_test_index.html", partners=PARTNERS)
 
-    subdomain = hostname.split(".")[0]
-    partner_data = get_partner_data_with_url(subdomain)
+    # Production logic: determine partner from domain
+    base_hostname = hostname.replace("www.", "")
+    
+    partner_id = DOMAIN_PARTNER_MAP.get(base_hostname)
 
-    if partner_data:
-        form = RequestInfoForm(partner_name=partner_data["partner_name"])
-        return render_template(
-            partner_data["template"], partner=partner_data, form=form
-        )
-    else:
-        trailhead_data = get_partner_data_with_url("trailhead")
+    if partner_id:
+        partner_data = get_partner_data_with_url(partner_id)
+        if partner_data:
+            form = RequestInfoForm(partner_name=partner_data["partner_name"])
+            return render_template(
+                partner_data["template"], partner=partner_data, form=form
+            )
+            
+    # Default to Trailhead if no specific partner domain is matched
+    trailhead_data = get_partner_data_with_url("trailhead")
+    if trailhead_data:
         form = RequestInfoForm(partner_name=trailhead_data["partner_name"])
         return render_template("trailhead_landing_page.html", partner=trailhead_data, form=form)
+    else:
+        abort(404)
 
 
 @clients_bp.route("/partner/<partner_id>")
@@ -130,17 +147,9 @@ def request_info():
     form = RequestInfoForm()
     partner_name = form.partner_name.data
 
-    # --- DEBUGGING ---
-    # Check if the form validates and print any errors to the terminal
     if form.validate_on_submit():
-        print("--- Form validation successful. Saving lead... ---")
         save_lead_to_csv(form, partner_name)
         return redirect(url_for("clients.thank_you"))
-    else:
-        print("--- Form validation FAILED. Errors below: ---")
-        print(form.errors)
-    # --- END DEBUGGING ---
-
 
     partner_id = None
     for pid, pdata in PARTNERS.items():
@@ -150,7 +159,6 @@ def request_info():
     
     if partner_id:
         partner_data = get_partner_data_with_url(partner_id)
-        # Re-render the form with validation errors (though they may not be visible on the page yet)
         return render_template(partner_data["template"], partner=partner_data, form=form)
 
     return "Error processing request.", 400
