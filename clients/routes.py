@@ -18,7 +18,11 @@ from google.oauth2.service_account import Credentials
 
 
 clients_bp = Blueprint(
-    "clients", __name__, template_folder="templates", static_folder="static"
+    "clients",
+    __name__,
+    template_folder="templates",
+    static_folder="static",
+    static_url_path="/clients/static",
 )
 
 # --- Partner Data ---
