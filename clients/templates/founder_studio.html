@@ -44,6 +44,11 @@
         color: var(--white-color);
         margin-bottom: 0.5em;
     }
+    .hero-section h2 {
+        font-size: 1.5em;
+        color: var(---light-blue);
+        margin-bottom: 0.5em;
+    }
     .hero-section p {
         font-size: 1.2em;
         color: var(--light-blue);
@@ -203,7 +208,13 @@
 
     <section class="hero-section">
         <h1>Welcome to the Founder Studio at iHub!</h1>
-        <p>A revolutionary approach to education that's faster, more hands-on, and powerfully relevant.</p>
+        <h2>Where students earn diplomas building real businesses.<h2>
+        <div style="max-width: 800px; margin: 2em auto; border-radius: 8px; overflow: hidden;">
+        <video width="100%" controls autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='videos/video.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        </div>
         <a href="#contact" class="cta-button">Request Info</a>
     </section>
 
