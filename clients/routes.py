@@ -1,4 +1,5 @@
 import os
+import json
 from datetime import datetime
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 from flask_wtf import FlaskForm
@@ -18,22 +19,36 @@ class InfoRequestForm(FlaskForm):
 
 def get_google_sheet_client():
     """Authenticates with Google and returns the gspread client."""
-    # --- UPDATED LINE ---
-    # Added the drive scope to ensure permissions for file access and modification
     scopes = [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive"
     ]
-    # Assuming credentials.json is in the instance folder or configured via env var
-    creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
+    
+    # --- UPDATED LOGIC FOR PRODUCTION ---
+    # In production (like on Vercel), load credentials from an environment variable.
+    creds_json_str = os.getenv("GOOGLE_CREDENTIALS")
+    if creds_json_str:
+        creds_info = json.loads(creds_json_str)
+        creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
+    else:
+        # Fallback for local development: use the credentials.json file.
+        creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
+        
     return gspread.authorize(creds)
 
 def save_lead_to_sheet(form, partner_name):
     """Saves a lead's information to the designated Google Sheet."""
     try:
         client = get_google_sheet_client()
-        # Make sure to replace "Your Google Sheet Name" with your actual sheet name
-        sheet = client.open("Leads").sheet1
+        
+        # --- UPDATED LOGIC FOR PRODUCTION ---
+        # Get the sheet name from an environment variable.
+        sheet_name = os.getenv("GOOGLE_SHEET_NAME")
+        if not sheet_name:
+            # Fallback for local development
+            sheet_name = "Your Google Sheet Name" 
+            
+        sheet = client.open(sheet_name).sheet1
         
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         full_name = f"{form.first_name.data} {form.last_name.data}"
@@ -44,13 +59,15 @@ def save_lead_to_sheet(form, partner_name):
         sheet.append_row(row)
         return True
     except gspread.exceptions.SpreadsheetNotFound:
-        flash("The Google Sheet was not found. Please check the sheet name.", "error")
+        flash("The Google Sheet was not found. Please check the configuration.", "error")
         print("ERROR: Spreadsheet not found. Make sure the name is correct and the service account has access.")
         return False
     except Exception as e:
         flash("An error occurred while saving your information.", "error")
         print(f"ERROR saving to Google Sheet: {e}")
         return False
+
+# The rest of your routes remain the same...
 
 @clients_bp.route('/')
 def home():
@@ -77,9 +94,6 @@ def view_timshel():
 def view_trailhead():
     """Renders the Trailhead landing page."""
     form = InfoRequestForm()
-    # The Trailhead template requires a 'partner' object with an 'id'.
-    # Since Notion is removed, we provide a dummy object.
-    # A better long-term solution would be to refactor the template.
     dummy_partner = {'id': 'trailhead'}
     return render_template('trailhead_landing_page.html', form=form, partner=dummy_partner)
 
@@ -88,15 +102,12 @@ def request_info():
     """Handles the info request form submission for all partners."""
     form = InfoRequestForm()
     if form.validate_on_submit():
-        # The partner name is now submitted via a hidden field in the form
         partner_name = request.form.get('partner_name', 'Unknown Partner')
         if save_lead_to_sheet(form, partner_name):
             return redirect(url_for('.request_info_thank_you'))
         else:
-            # If saving fails, redirect back to the form page
             return redirect(request.referrer or url_for('.home'))
     else:
-        # Flash validation errors
         for field, errors in form.errors.items():
             label = getattr(form, field).label.text
             for error in errors:
