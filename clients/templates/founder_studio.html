@@ -294,23 +294,22 @@
                 <form action="{{ url_for('clients.request_info') }}" method="post">
                     {{ form.hidden_tag() }}
                     <div class="form-group">
-                        <label for="first_name">First Name</label>
-                        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+                        {{ form.first_name.label }}
+                        {{ form.first_name(placeholder="Enter your first name", required=true) }}
                     </div>
                     <div class="form-group">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+                        {{ form.last_name.label }}
+                        {{ form.last_name(placeholder="Enter your last name", required=true) }}
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        {{ form.email.label }}
+                        {{ form.email(placeholder="Enter your email address", required=true) }}
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        {{ form.phone.label }}
+                        {{ form.phone(placeholder="Enter your phone number") }}
                     </div>
-                    <!-- This hidden input is crucial for identifying the partner -->
-                    <input type="hidden" name="partner_name" value="{{ partner.partner_name }}">
+                    <input type="hidden" name="partner_name" value="Founder Studio">
                     <button type="submit" class="cta-button">Submit</button>
                 </form>
         </div>
