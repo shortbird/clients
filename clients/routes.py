@@ -24,32 +24,46 @@ def get_google_sheet_client():
         "https://www.googleapis.com/auth/drive"
     ]
     
-    # --- UPDATED LOGIC FOR PRODUCTION ---
-    # In production (like on Vercel), load credentials from an environment variable.
     creds_json_str = os.getenv("GOOGLE_CREDENTIALS")
     if creds_json_str:
+        print("Found GOOGLE_CREDENTIALS environment variable. Using for authentication.")
         creds_info = json.loads(creds_json_str)
         creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
     else:
-        # Fallback for local development: use the credentials.json file.
-        creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
+        # --- UPDATED LOCAL DIAGNOSTICS ---
+        print("GOOGLE_CREDENTIALS environment variable not found. Looking for local 'credentials.json' file...")
+        try:
+            creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
+            print("Successfully loaded local 'credentials.json' file.")
+        except FileNotFoundError:
+            print("---!!! ERROR !!!---")
+            print("Could not find 'credentials.json' file in the root directory.")
+            print("Please ensure the file exists and you are running 'flask run' from the main project folder.")
+            print("-------------------")
+            return None # Stop execution if credentials can't be found
         
     return gspread.authorize(creds)
 
 def save_lead_to_sheet(form, partner_name):
     """Saves a lead's information to the designated Google Sheet."""
+    client = get_google_sheet_client()
+    if not client:
+        flash("Could not connect to Google Sheets due to a local credential error. See terminal for details.", "error")
+        return False
+
     try:
-        client = get_google_sheet_client()
-        
-        # --- UPDATED LOGIC FOR PRODUCTION ---
-        # Get the sheet name from an environment variable.
         sheet_name = os.getenv("GOOGLE_SHEET_NAME")
         if not sheet_name:
-            # Fallback for local development
             sheet_name = "Your Google Sheet Name" 
-            
+            print("GOOGLE_SHEET_NAME environment variable not set. Using default sheet name.")
+        
+        # --- NEW DIAGNOSTIC PRINT STATEMENT ---
+        print(f"--> Attempting to open Google Sheet named: '{sheet_name}'")
+        
         sheet = client.open(sheet_name).sheet1
         
+        print(f"Successfully opened sheet: '{sheet_name}'")
+
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         full_name = f"{form.first_name.data} {form.last_name.data}"
         email = form.email.data
@@ -59,8 +73,13 @@ def save_lead_to_sheet(form, partner_name):
         sheet.append_row(row)
         return True
     except gspread.exceptions.SpreadsheetNotFound:
-        flash("The Google Sheet was not found. Please check the configuration.", "error")
-        print("ERROR: Spreadsheet not found. Make sure the name is correct and the service account has access.")
+        print("---!!! ERROR !!!---")
+        print(f"Spreadsheet named '{sheet_name}' was not found.")
+        print("Please check two things:")
+        print("1. The sheet name is spelled exactly correct (it is case-sensitive).")
+        print(f"2. The sheet has been shared with the service account email: {client.auth.service_account_email}")
+        print("-------------------")
+        flash("The Google Sheet was not found. Please check your local configuration.", "error")
         return False
     except Exception as e:
         flash("An error occurred while saving your information.", "error")
@@ -71,35 +90,26 @@ def save_lead_to_sheet(form, partner_name):
 
 @clients_bp.route('/')
 def home():
-    """
-    Acts as the main router.
-    For simplicity, this now redirects to a default page since Notion is removed.
-    """
-    # Redirecting to a default landing page for demonstration
     return redirect(url_for('.view_founder_studio'))
 
 @clients_bp.route('/founder-studio')
 def view_founder_studio():
-    """Renders the Founder Studio landing page."""
     form = InfoRequestForm()
     return render_template('founder_studio.html', form=form)
 
 @clients_bp.route('/timshel')
 def view_timshel():
-    """Renders the Timshel landing page."""
     form = InfoRequestForm()
     return render_template('timshel.html', form=form)
 
 @clients_bp.route('/trailhead')
 def view_trailhead():
-    """Renders the Trailhead landing page."""
     form = InfoRequestForm()
     dummy_partner = {'id': 'trailhead'}
     return render_template('trailhead_landing_page.html', form=form, partner=dummy_partner)
 
 @clients_bp.route('/request-info', methods=['POST'])
 def request_info():
-    """Handles the info request form submission for all partners."""
     form = InfoRequestForm()
     if form.validate_on_submit():
         partner_name = request.form.get('partner_name', 'Unknown Partner')

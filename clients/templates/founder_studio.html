@@ -294,20 +294,20 @@
                 <form action="{{ url_for('clients.request_info') }}" method="post">
                     {{ form.hidden_tag() }}
                     <div class="form-group">
-                        {{ form.first_name.label }}
-                        {{ form.first_name(placeholder="Enter your first name", required=true) }}
+                        <label for="first_name">First Name</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
                     </div>
                     <div class="form-group">
-                        {{ form.last_name.label }}
-                        {{ form.last_name(placeholder="Enter your last name", required=true) }}
+                        <label for="last_name">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
                     </div>
                     <div class="form-group">
-                        {{ form.email.label }}
-                        {{ form.email(placeholder="Enter your email address", required=true) }}
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
                     </div>
                     <div class="form-group">
-                        {{ form.phone.label }}
-                        {{ form.phone(placeholder="Enter your phone number") }}
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
                     </div>
                     <input type="hidden" name="partner_name" value="Founder Studio">
                     <button type="submit" class="cta-button">Submit</button>
@@ -316,4 +316,16 @@
     </section>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.querySelector('.contact-card form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function() {
+                // Show the loading overlay
+                document.getElementById('loading-overlay').style.display = 'flex';
+            });
+        }
+    });
+</script>
 {% endblock %}

@@ -258,7 +258,7 @@
         </div>
         <div class="form-wrapper" id="form-section">
             <h2>Request More Information</h2>
-            <form action="{{ url_for('clients.request_info', partner_id=partner.id) }}" method="post" novalidate>
+            <form action="{{ url_for('clients.request_info') }}" method="post" novalidate>
                 {{ form.hidden_tag() }}
                 <div class="form-group">
                     {{ form.first_name.label }}
@@ -276,9 +276,22 @@
                     {{ form.phone.label }}
                     {{ form.phone(placeholder="Enter your phone number (Optional)") }}
                 </div>
+                <input type="hidden" name="partner_name" value="Trailhead">
                 {{ form.submit(class="btn") }}
             </form>
         </div>
     </div>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.querySelector('.form-wrapper form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function() {
+                // Show the loading overlay
+                document.getElementById('loading-overlay').style.display = 'flex';
+            });
+        }
+    });
+</script>
 {% endblock %}
