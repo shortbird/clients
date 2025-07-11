@@ -90,7 +90,7 @@ def save_lead_to_sheet(form, partner_name):
 
 @clients_bp.route('/')
 def home():
-    return redirect(url_for('.view_founder_studio'))
+    return render_template('timshel.html')
 
 @clients_bp.route('/founder-studio')
 def view_founder_studio():
