@@ -12,4 +12,4 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_default_fallback_key_
 app.register_blueprint(clients_bp)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

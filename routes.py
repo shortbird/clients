@@ -5,7 +5,6 @@ from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, NumberRange, Optional
-import notion_client
 from app import notion
 
 # Database IDs

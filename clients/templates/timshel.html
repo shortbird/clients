@@ -9,28 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- 
-    Infographic Plan
-    Narrative Structure:
-    1.  Hook: The problem of student disengagement and lack of readiness.
-    2.  Solution: Introduce the Optio model and its core philosophy.
-    3.  Mechanics: Detail the "School-in-a-Box" offering.
-    4.  Student Journey: A concrete example of a student's MAP.
-    5.  Partner Benefits: Clearly outline the value proposition for the partner.
-    6.  Financial Model: Visualize the revenue and profit potential.
-    7.  Funding: Explain the Utah Fits All Scholarship.
-    8.  Call to Action: Invite organizations to partner.
-
-    Visualization Choices (NO SVG, NO MERMAID JS):
-    - Readiness Stats: Two Donut Charts (Chart.js)
-    - Core Philosophy: HTML/CSS Diagram (Tailwind)
-    - School-in-a-Box: HTML/CSS Flowchart (Tailwind)
-    - Student Journey: HTML/CSS Process Flow (Tailwind)
-    - Financial Model: Stacked Bar Chart (Chart.js)
-    - All other elements use structured HTML/CSS with Tailwind styling.
-
-    Color Palette Selection: "Brilliant Blues"
-    -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -58,6 +36,59 @@
             background-clip: text;
             text-fill-color: transparent;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.6);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 2.5rem;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 0.5rem; color: #333; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #dee2e6; border-radius: 4px; box-sizing: border-box; font-size: 1rem; background-color: #fff;}
+        .modal-form-button {
+            background-color: #7a5195;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -65,16 +96,15 @@
     <header class="bg-white shadow-md">
         <div class="container mx-auto px-6 py-8 text-center">
             <h1 class="text-4xl md:text-5xl font-extrabold text-[#003f5c]">Optio</h1>
-            <p class="mt-4 text-lg md:text-xl text-gray-600">Reigniting Student Motivation Through Choice</p>
+            <p class="mt-4 text-lg md:text-xl text-gray-600">Reigniting Student Motivation</p>
         </div>
     </header>
 
     <main class="container mx-auto px-6 py-12">
 
-        <!-- Section 1: The Readiness Gap -->
         <section id="problem" class="text-center mb-20">
             <h2 class="text-3xl font-bold mb-4 text-[#003f5c]">The Post-Graduation Readiness Gap</h2>
-            <p class="max-w-3xl mx-auto text-gray-600 mb-8">Traditional education is leaving students unprepared for the future. The "2025 Post-Graduation Readiness Report" published by YouScience reveals a critical confidence gap. Students need more than lectures; they need experience.</p>
+            <p class="max-w-3xl mx-auto text-gray-600 mb-8">Traditional education is leaving students unprepared for the future. The <a href="https://www.youscience.com/resources/press/2025-pgrr-press-release/" target="_blank" rel="noopener noreferrer" class="text-[#bc5090] hover:underline">"2025 Post-Graduation Readiness Report"</a> published by YouScience reveals a critical confidence gap. Students need more than lectures; they need experience.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
                     <h3 class="text-xl font-bold text-[#bc5090] mb-4">Preparedness for the Future</h3>
@@ -93,7 +123,6 @@
             </div>
         </section>
 
-        <!-- Section 2: A New Model -->
         <section id="solution" class="text-center mb-20">
             <h2 class="text-3xl font-bold mb-4 text-[#003f5c]">A New Model Built on Motivation</h2>
             <p class="max-w-3xl mx-auto text-gray-600 mb-12">Our name, Optio, is Latin for "choice." We are founded on Self-Determination Theory, which identifies three innate psychological needs that drive human motivation. Our framework is built to satisfy them.</p>
@@ -116,7 +145,6 @@
             </div>
         </section>
 
-        <!-- Section 3: The "School-in-a-Box" -->
         <section id="how-it-works" class="mb-20">
             <h2 class="text-3xl font-bold text-center mb-4 text-[#003f5c]">Your Turnkey "School-in-a-Box"</h2>
             <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">We provide partners with a complete, fully-managed solution to launch a transformative educational program without the immense operational and financial burden of building one from scratch.</p>
@@ -149,7 +177,6 @@
         </section>
 
 
-        <!-- Section 4: Student Journey -->
         <section id="journey" class="mb-20">
             <h2 class="text-3xl font-bold text-center mb-4 text-[#003f5c]">From Passion to Diploma</h2>
              <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">How does it work for a student? It starts with their passion and ends with a portfolio of real-world work and an accredited diploma. Let's look at Alex, an aspiring game developer.</p>
@@ -211,7 +238,6 @@
             </div>
         </section>
         
-        <!-- Section 5: Financial Model -->
         <section id="financials" class="mb-20">
             <h2 class="text-3xl font-bold text-center mb-4 text-[#003f5c]">The Partnership Advantage</h2>
             <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Our model is designed to be a win-win. We provide a world-class educational program, and you gain a powerful new, high-margin revenue stream that leverages the assets you already have.</p>
@@ -225,7 +251,6 @@
             </div>
         </section>
 
-        <!-- Section 6: Utah Fits All Scholarship -->
         <section id="scholarship" class="mb-20">
             <div class="bg-white rounded-lg shadow-xl p-8 md:p-12 border-t-4 border-[#ffa600]">
                 <div class="text-center">
@@ -237,12 +262,11 @@
             </div>
         </section>
 
-        <!-- Section 7: Call to Action -->
         <section id="cta" class="text-center">
             <div class="bg-gradient-to-r from-[#7a5195] to-[#ef5675] rounded-lg shadow-2xl p-12 text-white">
                 <h2 class="text-3xl font-extrabold mb-4">Become a Pioneer in Education</h2>
                 <p class="max-w-2xl mx-auto text-lg mb-8">Join us in building the future of learning. If you run an organization that serves passionate, dedicated students, let's explore how an Optio partnership can help you grow your impact and your business.</p>
-                <a href="#" class="bg-white text-[#bc5090] font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg">Request Partnership Info</a>
+                <button id="request-info-btn" class="bg-white text-[#bc5090] font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg">Request Partnership Info</button>
             </div>
         </section>
     </main>
@@ -253,8 +277,57 @@
         </div>
     </footer>
 
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="text-2xl font-bold text-center mb-6 text-[#003f5c]">Partnership Inquiry</h2>
+            <form action="{{ url_for('clients.request_info') }}" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.first_name.label(class="form-label") }}
+                    {{ form.first_name(class="form-control", placeholder="Enter your first name") }}
+                </div>
+                <div class="form-group">
+                    {{ form.last_name.label(class="form-label") }}
+                    {{ form.last_name(class="form-control", placeholder="Enter your last name") }}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label(class="form-label") }}
+                    {{ form.email(class="form-control", placeholder="Enter your email address") }}
+                </div>
+                <div class="form-group">
+                    {{ form.phone.label(class="form-label") }}
+                    {{ form.phone(class="form-control", placeholder="Enter your phone number (Optional)") }}
+                </div>
+                <input type="hidden" name="partner_name" value="Optio Partnership Inquiry">
+                <button type="submit" class="modal-form-button">Submit Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
+            // Modal handling
+            const modal = document.getElementById('info-modal');
+            const btn = document.getElementById('request-info-btn');
+            const span = document.getElementsByClassName('close-button')[0];
+
+            btn.onclick = function() {
+                modal.style.display = 'block';
+            }
+
+            span.onclick = function() {
+                modal.style.display = 'none';
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+
 
             const processLabel = (label) => {
                 const maxLength = 16;
