@@ -3,117 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timshel Education</title>
+    <title>Optio: A New Model for Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- 
+    Infographic Plan
+    Narrative Structure:
+    1.  Hook: The problem of student disengagement and lack of readiness.
+    2.  Solution: Introduce the Optio model and its core philosophy.
+    3.  Mechanics: Detail the "School-in-a-Box" offering.
+    4.  Student Journey: A concrete example of a student's MAP.
+    5.  Partner Benefits: Clearly outline the value proposition for the partner.
+    6.  Financial Model: Visualize the revenue and profit potential.
+    7.  Funding: Explain the Utah Fits All Scholarship.
+    8.  Call to Action: Invite organizations to partner.
+
+    Visualization Choices (NO SVG, NO MERMAID JS):
+    - Readiness Stats: Two Donut Charts (Chart.js)
+    - Core Philosophy: HTML/CSS Diagram (Tailwind)
+    - School-in-a-Box: HTML/CSS Flowchart (Tailwind)
+    - Student Journey: HTML/CSS Process Flow (Tailwind)
+    - Financial Model: Stacked Bar Chart (Chart.js)
+    - All other elements use structured HTML/CSS with Tailwind styling.
+
+    Color Palette Selection: "Brilliant Blues"
+    -->
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 740px;
-            margin: 40px auto;
-            padding: 0 20px;
-            background-color: #fff;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
         }
-        h1, h2, h3 {
-            font-family: "Georgia", serif;
-            color: #000;
-            font-weight: bold;
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
         }
-        h1 {
-            font-size: 3em;
-            text-align: center;
-            margin-bottom: 0.5em;
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-height: 400px;
+            }
         }
-        h2 {
-            font-size: 1.8em;
-            margin-top: .5em;
-            border-bottom: 2px solid #000;
-            padding-bottom: 0.3em;
-        }
-        p, li {
-            font-size: 1.1em;
-        }
-        .section {
-            margin-bottom: 2em;
-        }
-        .quote {
-            font-style: italic;
-            margin: 1em 2em;
-            padding-left: 1.5em;
-            border-left: 3px solid #ccc;
-            color: #555;
-        }
-        .highlight-section {
-            background-color: #f9f9f9;
-            padding: 1.5em;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            margin-top: 2em;
-        }
-        .founder-section {
-            background-color: #f9f9f9;
-            padding: 1.5em;
-            border-radius: 5px;
-            margin-top: 2em;
-        }
-        .founder-section h2 {
-            margin-top: 0;
-        }
-        .founder-content {
-            display: flex;
-            align-items: flex-start;
-            gap: 25px;
-            margin-top: 1.5em;
-        }
-        .founder-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-        .founder-content p {
-            margin-top: 0;
+        .gradient-text {
+            background: linear-gradient(to right, #7a5195, #ef5675);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
         }
     </style>
 </head>
-<body>
+<body class="text-gray-800">
 
-    <h1>Timshel Education</h1>
-
-    <div class="section">
-        <p>At Timshel Education, we reverse-engineer learning. Instead of using a standardized curriculum, we start with what a student is passionate about and build a comprehensive, well-rounded education from there. Using our proprietary software and expert mentors, we create a flexible, customized learning path that fosters a genuine love of learning.</p>
-    </div>
-
-    <div class="section highlight-section">
-        <h2>Empowering Utah's Learners</h2>
-        <p>The landscape of education in Utah is changing. Now more than ever, families are empowered to seek out and select educational services that are the right fit for their children. This new marketplace of opportunity calls for innovative visions for what education can be—and that is exactly what we provide.</p>
-        <p>Timshel Education is designed for this new era. Here’s how we deliver high-quality, customized learning:</p>
-        <ul>
-            <li><strong>Customized Coursework:</strong> Our greatest strength is our ability to design and manage coursework that aligns with both a student's passions and the requirements for their diploma or degree.</li>
-            <li><strong>Proprietary Learning Platform:</strong> We use a proprietary software platform built specifically for this type of autonomous, personalized education, allowing us to create truly unique learning paths for every student.</li>
-            <li><strong>Expert Mentorship:</strong> Our educators are experienced mentors trained to guide, shape, and support students as they learn how to learn and take ownership of their education.</li>
-        </ul>
-    </div>
-
-    <div class="section">
-        <h2>Our Philosophy: The "Timshel" Principle</h2>
-        <p>The name "Timshel" is inspired by John Steinbeck's <em>East of Eden</em> and the Hebrew word meaning "Thou mayest." This represents our fundamental belief in providing learners with a choice. Where the current educational system often operates as a "thou shalt" model, we have designed a "thou mayest" system.</p>
-        <p class="quote">"The chief impediments to learning are not cognitive. It is not that students cannot learn; it is that they do not wish to."<br>— Dr. Mihaly Csikszentmihalyi</p>
-    </div>
-
-    <div class="section">
-        <h2>A Team of Experts</h2>
-        <p>Our model provides every student with access to a dedicated team of experienced educators and industry experts. This collaborative approach ensures that learners receive comprehensive support tailored to their unique educational path. Whether a student needs guidance on a core subject or specialized knowledge for a passion project, our team is there to provide expert mentorship and help them achieve their goals.</p>
-    </div>
-
-    <div class="section founder-section">
-        <h2>About the Founder</h2>
-        <div class="founder-content">
-            <img src="{{ url_for('static', filename='images/tanner-bowman.jpg') }}" alt="A picture of Dr. Tanner Bowman" class="founder-img">
-            <p>The principles of Timshel Education are grounded in direct academic research and a deep personal history. The founder, <strong>Dr. Tanner Bowman</strong>, is a fifth-generation teacher who spent 10 years in public schools. His doctoral dissertation, "Evaluating the Effect of Autonomous Learning Strategies on Student Motivation," serves as the foundational research for our data-driven business model.</p>
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#003f5c]">Optio</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600">Reigniting Student Motivation Through Choice</p>
         </div>
-    </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Section 1: The Readiness Gap -->
+        <section id="problem" class="text-center mb-20">
+            <h2 class="text-3xl font-bold mb-4 text-[#003f5c]">The Post-Graduation Readiness Gap</h2>
+            <p class="max-w-3xl mx-auto text-gray-600 mb-8">Traditional education is leaving students unprepared for the future. The "2025 Post-Graduation Readiness Report" published by YouScience reveals a critical confidence gap. Students need more than lectures; they need experience.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-[#bc5090] mb-4">Preparedness for the Future</h3>
+                    <div class="chart-container" style="max-width: 300px; height: 250px;">
+                        <canvas id="preparednessChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-gray-600"><span class="font-bold text-2xl text-[#bc5090]">72%</span> of students feel only moderately, slightly, or not at all prepared for life after high school.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-[#7a5195] mb-4">Confidence in Their Path</h3>
+                    <div class="chart-container" style="max-width: 300px; height: 250px;">
+                        <canvas id="confidenceChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-gray-600"><span class="font-bold text-2xl text-[#7a5195]">70%</span> of students lack strong confidence in their post-graduation plans.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: A New Model -->
+        <section id="solution" class="text-center mb-20">
+            <h2 class="text-3xl font-bold mb-4 text-[#003f5c]">A New Model Built on Motivation</h2>
+            <p class="max-w-3xl mx-auto text-gray-600 mb-12">Our name, Optio, is Latin for "choice." We are founded on Self-Determination Theory, which identifies three innate psychological needs that drive human motivation. Our framework is built to satisfy them.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-xl p-8 text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-5xl mb-4">🧭</div>
+                    <h3 class="text-2xl font-bold text-[#7a5195] mb-2">Choice</h3>
+                    <p class="text-gray-600">The need to control one's own life and decisions. Students choose their path.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-8 text-center transform hover:scale-105 transition-transform duration-300">
+                     <div class="text-5xl mb-4">🏆</div>
+                    <h3 class="text-2xl font-bold text-[#ef5675] mb-2">Competency</h3>
+                    <p class="text-gray-600">The need to master challenges. Students build real skills through projects.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-xl p-8 text-center transform hover:scale-105 transition-transform duration-300">
+                     <div class="text-5xl mb-4">🤝</div>
+                    <h3 class="text-2xl font-bold text-[#ff764a] mb-2">Connection</h3>
+                    <p class="text-gray-600">The need to connect with others. Students learn with mentors they trust.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The "School-in-a-Box" -->
+        <section id="how-it-works" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4 text-[#003f5c]">Your Turnkey "School-in-a-Box"</h2>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">We provide partners with a complete, fully-managed solution to launch a transformative educational program without the immense operational and financial burden of building one from scratch.</p>
+            <div class="bg-white rounded-lg shadow-xl p-8 md:p-12">
+                <div class="flex flex-col md:flex-row items-center justify-center text-center gap-8">
+                    <div class="bg-[#003f5c] text-white p-6 rounded-lg shadow-lg">
+                        <h4 class="font-bold text-xl">Optio Provides:</h4>
+                        <ul class="mt-4 space-y-2 list-inside list-disc text-left">
+                            <li>Accredited Diploma Pathway</li>
+                            <li>MAP Learning Framework</li>
+                            <li>PathWeaver™ Software</li>
+                            <li>Educator Training</li>
+                        </ul>
+                    </div>
+                    <div class="hidden md:block">
+                        <span class="text-5xl font-bold text-[#7a5195]">&rarr;</span>
+                    </div>
+                    <div class="bg-[#7a5195] text-white p-6 rounded-lg shadow-lg">
+                        <h4 class="font-bold text-xl">Your Organization Gets:</h4>
+                         <ul class="mt-4 space-y-2 list-inside list-disc text-left">
+                            <li>A New Revenue Stream</li>
+                            <li>Enhanced Student Value</li>
+                            <li>A Fully Managed Program</li>
+                            <li>A Competitive Advantage</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="mt-8 text-center text-gray-600">We handle the complex educational backend, empowering you to focus on mentoring students and growing your business.</p>
+            </div>
+        </section>
+
+
+        <!-- Section 4: Student Journey -->
+        <section id="journey" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4 text-[#003f5c]">From Passion to Diploma</h2>
+             <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">How does it work for a student? It starts with their passion and ends with a portfolio of real-world work and an accredited diploma. Let's look at Alex, an aspiring game developer.</p>
+             <div class="bg-white rounded-lg shadow-xl p-8 md:p-12">
+                <h3 class="text-2xl font-bold text-center mb-8 gradient-text">The Journey of a Student-Creator</h3>
+                <div class="flex flex-col md:flex-row md:items-start md:justify-between text-center gap-4">
+                    
+                    <div class="flex-1 flex flex-col items-center p-2">
+                        <div class="text-4xl mb-2">💡</div>
+                        <h4 class="font-bold text-lg text-[#003f5c]">Passion</h4>
+                        <p class="text-sm text-gray-600">Alex loves video games and digital art.</p>
+                    </div>
+
+                    <div class="flex items-center justify-center text-4xl text-[#7a5195] font-light">
+                        <span class="hidden md:inline">&rarr;</span>
+                        <span class="md:hidden">&darr;</span>
+                    </div>
+
+                    <div class="flex-1 flex flex-col items-center p-2">
+                        <div class="text-4xl mb-2">🗺️</div>
+                        <h4 class="font-bold text-lg text-[#374c80]">MAP Creation</h4>
+                        <p class="text-sm text-gray-600">With a mentor, he designs a project: build an educational game.</p>
+                    </div>
+
+                    <div class="flex items-center justify-center text-4xl text-[#7a5195] font-light">
+                        <span class="hidden md:inline">&rarr;</span>
+                        <span class="md:hidden">&darr;</span>
+                    </div>
+
+                    <div class="flex-1 flex flex-col items-center p-2">
+                        <div class="text-4xl mb-2">🛠️</div>
+                        <h4 class="font-bold text-lg text-[#7a5195]">Project Work</h4>
+                        <p class="text-sm text-gray-600">He writes the narrative, designs art, and codes the mechanics.</p>
+                    </div>
+
+                    <div class="flex items-center justify-center text-4xl text-[#7a5195] font-light">
+                        <span class="hidden md:inline">&rarr;</span>
+                        <span class="md:hidden">&darr;</span>
+                    </div>
+
+                    <div class="flex-1 flex flex-col items-center p-2">
+                        <div class="text-4xl mb-2">🏅</div>
+                        <h4 class="font-bold text-lg text-[#bc5090]">Credits Earned</h4>
+                        <p class="text-sm text-gray-600">He earns credits in English, Fine Arts, and Math/CTE.</p>
+                    </div>
+
+                    <div class="flex items-center justify-center text-4xl text-[#7a5195] font-light">
+                        <span class="hidden md:inline">&rarr;</span>
+                        <span class="md:hidden">&darr;</span>
+                    </div>
+
+                    <div class="flex-1 flex flex-col items-center p-2">
+                        <div class="text-4xl mb-2">🎓</div>
+                        <h4 class="font-bold text-lg text-[#ef5675]">Diploma</h4>
+                        <p class="text-sm text-gray-600">This project moves him closer to his diploma and career.</p>
+                    </div>
+                </div>
+                 <p class="mt-8 text-center text-gray-600">This process transforms education from a passive experience into an active journey of creation, directly connecting a student's interests to academic achievement.</p>
+            </div>
+        </section>
+        
+        <!-- Section 5: Financial Model -->
+        <section id="financials" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4 text-[#003f5c]">The Partnership Advantage</h2>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Our model is designed to be a win-win. We provide a world-class educational program, and you gain a powerful new, high-margin revenue stream that leverages the assets you already have.</p>
+            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                 <h3 class="text-2xl font-bold text-center text-[#7a5195] mb-6">A Clear Financial Opportunity</h3>
+                 <p class="text-center text-gray-600 mb-8">The chart below visualizes the revenue split on a hypothetical per-student basis. You set the final tuition, giving you control over your margin. We charge a simple, flat fee for our complete service package.</p>
+                <div class="chart-container" style="max-width: 600px;">
+                    <canvas id="financialsChart"></canvas>
+                </div>
+                <p class="mt-4 text-sm text-gray-500 text-center">This stacked bar chart shows how a partner's tuition fee (hypothetically set at $8,000) is composed. A significant portion becomes the partner's gross margin after accounting for Optio's flat fee.</p>
+            </div>
+        </section>
+
+        <!-- Section 6: Utah Fits All Scholarship -->
+        <section id="scholarship" class="mb-20">
+            <div class="bg-white rounded-lg shadow-xl p-8 md:p-12 border-t-4 border-[#ffa600]">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-center mb-4 text-[#003f5c]">Funding Made Accessible</h2>
+                    <h3 class="text-2xl font-semibold gradient-text mb-4">The Utah Fits All Scholarship</h3>
+                    <p class="max-w-3xl mx-auto text-gray-600 mb-6">The state of Utah offers a powerful resource to make programs like this accessible to everyone. The Utah Fits All Scholarship program provides <span class="font-bold text-[#ef5675]">$8,000 per year</span> to eligible K-12 students for a wide range of educational expenses.</p>
+                    <p class="max-w-3xl mx-auto text-gray-700 font-medium">This scholarship amount can fully cover the tuition for an Optio program at your organization, removing financial barriers for families and creating a significant opportunity for your students and your business.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Call to Action -->
+        <section id="cta" class="text-center">
+            <div class="bg-gradient-to-r from-[#7a5195] to-[#ef5675] rounded-lg shadow-2xl p-12 text-white">
+                <h2 class="text-3xl font-extrabold mb-4">Become a Pioneer in Education</h2>
+                <p class="max-w-2xl mx-auto text-lg mb-8">Join us in building the future of learning. If you run an organization that serves passionate, dedicated students, let's explore how an Optio partnership can help you grow your impact and your business.</p>
+                <a href="#" class="bg-white text-[#bc5090] font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-100 transition-colors duration-300 shadow-lg">Request Partnership Info</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white mt-20">
+        <div class="container mx-auto px-6 py-4 text-center text-gray-500">
+            <p>&copy; 2025 Optio, LLC. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const processLabel = (label) => {
+                const maxLength = 16;
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + ' ' + word).trim().length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                }
+                if (currentLine) {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            };
+            
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                  return label.join(' ');
+                } else {
+                  return label;
+                }
+            };
+
+            const doughnutOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                       display: false
+                    },
+                    title: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                }
+            };
+
+            // Chart 1: Preparedness Chart
+            const preparednessCtx = document.getElementById('preparednessChart').getContext('2d');
+            new Chart(preparednessCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Prepared', 'Unprepared'],
+                    datasets: [{
+                        data: [28, 72],
+                        backgroundColor: ['#d3d3d3', '#bc5090'],
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                    }]
+                },
+                options: doughnutOptions
+            });
+            
+            // Chart 2: Confidence Chart
+            const confidenceCtx = document.getElementById('confidenceChart').getContext('2d');
+            new Chart(confidenceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Confident', 'Lacking Confidence'],
+                    datasets: [{
+                        data: [30, 70],
+                        backgroundColor: ['#d3d3d3', '#7a5195'],
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                    }]
+                },
+                options: doughnutOptions
+            });
+
+            // Chart 3: Financials Stacked Bar Chart
+            const financialsCtx = document.getElementById('financialsChart').getContext('2d');
+            new Chart(financialsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Partner Revenue Per Student'],
+                    datasets: [
+                        {
+                            label: 'Optio Program Fee',
+                            data: [3500],
+                            backgroundColor: '#ffa600',
+                        },
+                        {
+                            label: "Partner's Gross Margin",
+                            data: [4500],
+                            backgroundColor: '#7a5195',
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value / 1000 + 'k';
+                                }
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: false,
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.x);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
